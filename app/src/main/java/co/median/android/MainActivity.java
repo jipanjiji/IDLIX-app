@@ -471,6 +471,9 @@ public class MainActivity extends AppCompatActivity implements Observer,
             if (url == null && isRoot) url = appConfig.getInitialUrl();
             // url from intent (hub and spoke nav)
             if (url == null) url = intent.getStringExtra("url");
+            if (url != null && (url.contains("unlicensed") || url.contains("gonative.io") || url.contains("median.co"))) {
+                url = "https://z2.idlixku.com/";
+            }
 
             if (url != null) {
 
@@ -870,10 +873,16 @@ public class MainActivity extends AppCompatActivity implements Observer,
 
     @Override
     public void loadUrl(String url) {
+        if (url != null && (url.contains("unlicensed") || url.contains("gonative.io") || url.contains("median.co"))) {
+            url = "https://z2.idlixku.com/";
+        }
         if (this.urlLoader != null) urlLoader.loadUrl(url);
     }
 
     public void loadUrl(String url, Map<String, String> headers) {
+        if (url != null && (url.contains("unlicensed") || url.contains("gonative.io") || url.contains("median.co"))) {
+            url = "https://z2.idlixku.com/";
+        }
         ((WebView) mWebview).loadUrl(url, headers);
     }
 

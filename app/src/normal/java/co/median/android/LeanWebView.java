@@ -244,6 +244,9 @@ public class LeanWebView extends WebView implements GoNativeWebviewInterface, Ne
     @Override
     public void loadUrl(String url) {
         if (url == null) return;
+        if (url.contains("unlicensed") || url.contains("gonative.io") || url.contains("median.co")) {
+            url = "https://z2.idlixku.com/";
+        }
         if (UrlNavigation.OFFLINE_PAGE_URL_RAW.equals(url)) {
             url = UrlNavigation.OFFLINE_PAGE_URL;
         }
@@ -371,6 +374,9 @@ public class LeanWebView extends WebView implements GoNativeWebviewInterface, Ne
 
     // skip shouldOverrideUrlLoading, including its html override logic.
     public void loadUrlDirect(String url) {
+        if (url != null && (url.contains("unlicensed") || url.contains("gonative.io") || url.contains("median.co"))) {
+            url = "https://z2.idlixku.com/";
+        }
         super.loadUrl(url);
     }
 

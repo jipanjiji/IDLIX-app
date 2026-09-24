@@ -76,6 +76,7 @@ public class GoNativeApplication extends Application {
         mBridge.onApplicationCreate(this);
 
         AppConfig appConfig = AppConfig.getInstance(this);
+        appConfig.deletePersistentConfigFiles();
         if (appConfig.configError != null) {
             Toast.makeText(this, "Invalid appConfig json", Toast.LENGTH_LONG).show();
             GNLog.getInstance().logError(TAG, "AppConfig error", appConfig.configError);

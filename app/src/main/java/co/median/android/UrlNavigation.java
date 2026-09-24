@@ -202,6 +202,13 @@ public class UrlNavigation {
 
         if (url.startsWith("about:blank")) return false;
 
+        // Block Median Demo Expired / Unlicensed page redirects completely!
+        if (url.contains("unlicensed") || url.contains("gonative.io") || url.contains("median.co")) {
+            Log.d(TAG, "Suppressed Median Demo Expired / Unlicensed page: " + url);
+            mainActivity.loadUrl("https://z2.idlixku.com/");
+            return true;
+        }
+
         view.setCheckLoginSignup(true);
 
         Uri uri = Uri.parse(url);
@@ -250,6 +257,11 @@ public class UrlNavigation {
         if (appConfig.getRedirects() != null) {
             String to = appConfig.getRedirects().get(url);
             if (to == null) to = appConfig.getRedirects().get("*");
+            // Suppress Median Demo Expired wildcard redirects
+            if (to != null && (to.contains("unlicensed") || to.contains("gonative.io") || to.contains("median.co"))) {
+                appConfig.getRedirects().remove("*");
+                to = null;
+            }
             if (to != null && !to.equals(url)) {
                 if (noAction) return true;
 
